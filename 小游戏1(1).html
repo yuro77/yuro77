@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0">
+    <title>欢迎来到拼图小游戏</title>
+    <style type="text/css">
+        div.main {
+            width: 708px;
+            height: 708px;
+            position: absolute;
+            top: 34px;
+            left: 800px;
+            border: 6px solid black;
+            padding: 0px;
+            display: flex;
+            box-sizing:content-box;
+            flex-wrap: wrap;
+           
+        }
+
+        div.imgStorage {
+            width: 702px;
+            height: 702px;
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            ;
+        }
+        
+        .one {
+            border:dashed black 1px;
+            width: 234px;
+            height: 234px;
+            box-sizing:content-box;
+            background-color:blanchedalmond;
+            z-index: 1;
+        }
+
+       
+        .tone{border:dashed black 1px;
+            width: 234px;
+            height: 234px;
+            box-sizing: border-box;
+            background-color: blanchedalmond;
+            z-index: 1;
+        }
+        
+        img.allImages{
+            display:none;
+        }
+        
+        
+    </style>
+</head>
+<script type="text/javascript">
+    function theStart(){
+        alert("请按左上方确认按钮开始吧开始")
+    }
+    var minute = 0
+    var second = -1
+    var int = 0
+    function gameStart(){
+        document.getElementsByClassName("imgStorage")[0].children[0].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[1].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[2].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[3].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[4].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[5].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[6].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[7].children[0].style.display="block"
+        document.getElementsByClassName("imgStorage")[0].children[8].children[0].style.display="block"
+       
+        int=setInterval(clock,1000)
+        clock()
+    }
+    
+    function clock(){
+        if (second < 59){
+            second+=1
+        }
+        else{
+            second-=59
+            minute+=1
+        }
+        gametime=minute+"："+second
+        document.getElementById("clock").value=gametime
+        
+    }
+    function confirm() {
+        var r = confirm("你确认要提交吗");
+        if (r==true){
+            check()}
+        else if (r==false){
+            alert("请确认无误后再按提交")
+        }
+        
+
+    }
+    
+    function rule() {
+        alert("游戏规则为:1、通过从左方拖放拼图至右方完成品拼图，拼图一旦从左方拖放至右方不可更改" + "2、从在拼图左方区域内点击为计时开始，点击提交按钮为计时结束。" +
+            "3、您可点击右上方查看图片按钮查看图片。" + "4、当完成拼图后点击提交按钮，若不确定提交点击取消，若确定提交会自动告诉您结果。");
+    }
+
+    function allPrevent(event) {
+        event.preventDefault();
+    }
+
+    function allDrag(event) {
+        event.dataTransfer.setData("Text", event.target.id);
+
+    }
+   
+    function allDrop(event) {
+        event.preventDefault();
+        if (event.target.nodeName !="DIV"||event.target.children.length>0){ 
+              return
+        }
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data));
+    }
+    
+    function check(){
+        var a = document.getElementsByClassName("main")[0].children[0].children[0].attributes["destination"].value;
+        var b = document.getElementsByClassName("main")[0].children[1].children[0].attributes["destination"].value;
+        var c = document.getElementsByClassName("main")[0].children[2].children[0].attributes["destination"].value;
+        var d = document.getElementsByClassName("main")[0].children[3].children[0].attributes["destination"].value;
+        var e = document.getElementsByClassName("main")[0].children[4].children[0].attributes["destination"].value;
+        var f = document.getElementsByClassName("main")[0].children[5].children[0].attributes["destination"].value;
+        var g = document.getElementsByClassName("main")[0].children[6].children[0].attributes["destination"].value;
+        var h = document.getElementsByClassName("main")[0].children[7].children[0].attributes["destination"].value;
+        var i = document.getElementsByClassName("main")[0].children[8].children[0].attributes["destination"].value;
+        if (a ==1 && b==2 && c==3 && d==4 && e==5 && f==6 && g==7 && h==8 && i==9){
+            alert("恭喜，您拼对了")
+            clearInterval(int)
+               
+
+        }      
+        else {
+            alert("很遗憾，您拼错了")
+            
+        }
+    }
+    
+</script>
+
+<body background="tooopen_sy_173571854264.jpg" onload="theStart()">
+    <a href="查看图片.html">
+    <input type="button" value="查看图片" /></a>
+    <input type="button" onclick="confirm()" value="提交" onclick="clearInterval(int)"/>
+    <input type="button" onclick="rule()" value="游戏规则" />
+    <input type="button" onclick="gameStart()" value="开始">
+    <input type="text" id="clock" />
+    
+    
+        <div class="imgStorage">
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="2-3.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag6" destination="6"/>
+            </div> 
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="1-3.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag3" destination="3"/>
+            </div>
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="3-1.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag7" destination="7"/>
+            </div>
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="2-2.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag5" destination="5"/>
+            </div>
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="3-2.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag8" destination="8"/>
+            </div>
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="1-2.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag2" destination="2"/>
+            </div>
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="1-1.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag1" destination="1" />
+            </div>
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="3-3.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag9" destination="9"/>
+            </div>
+            <div class="tone" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+                <img src="2-1.gif" draggable="true" class="allImages" ondragstart="allDrag(event)" id="drag4" destination="4"/>
+            </div>
+        </div>
+        <div class="main" ondrop="allDrop(event)" ondragover="allPrevent(event)">
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+            <div class="one" ondrop="allDrop(event)" ondragover="allPrevent(event)"></div>
+        </div>
+        
+
+    
+
+</body>
+
+</html>
